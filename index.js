@@ -3,7 +3,7 @@ const app = express();
 const http = require("http").createServer(app);
 const io = require('socket.io')(http);
 
-app.get('/view', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/display.html')
 })
 
