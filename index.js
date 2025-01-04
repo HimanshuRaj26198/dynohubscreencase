@@ -5,7 +5,7 @@ const app = express();
 const http = require("http").createServer(app);
 const io = require('socket.io')(http, {
     cors: {
-        origin: ["http://localhost:3000", "https://dynohubscreencase-e6l7x2rcr-himanshuraj26198s-projects.vercel.app"],
+        origin: ["http://localhost:3000", "https://dynohubscreencase.vercel.app"],
         methods: ["GET", "POST"],
         allowedHeaders: ["Content-Type"],
         transports: ["polling"]
