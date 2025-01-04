@@ -11,7 +11,7 @@ const io = require('socket.io')(http, {
     },
 });
 
-app.get('/', (req, res) => {
+app.get('/view', (req, res) => {
     res.sendFile(__dirname + '/display.html');
 });
 
