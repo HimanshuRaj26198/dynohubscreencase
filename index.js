@@ -1,11 +1,19 @@
 const express = require('express');
+const serverless = require('serverless-http');
+
 const app = express();
 const http = require("http").createServer(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+        transports: ["polling"]
+    },
+});
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/display.html')
-})
+    res.sendFile(__dirname + '/display.html');
+});
 
 io.on('connection', (socket) => {
     console.log("Socket.io connection success");
@@ -19,13 +27,9 @@ io.on('connection', (socket) => {
         data = JSON.parse(data);
         let room = data.room;
         let imgStr = data.image;
-        socket.broadcast.to(room).emit('screen-data', imgStr)
-    })
-})
+        socket.broadcast.to(room).emit('screen-data', imgStr);
+    });
+});
 
-
-const server_port = process.env.YOUR_PORT || process.env.PORT || 5000;
-
-http.listen(server_port, () => {
-    console.log("Started on:" + server_port)
-})
+module.exports = app;
+module.exports.handler = serverless(app);
